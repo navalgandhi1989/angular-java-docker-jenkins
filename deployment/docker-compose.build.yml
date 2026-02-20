@@ -1,0 +1,11 @@
+services:
+  sample-app-frontend:
+    image: "sample-app-frontend:latest"
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+  sample-app-backend:
+    image: "sample-app-backend:latest"
+    build:
+      context: ../backend
+      dockerfile: Dockerfile

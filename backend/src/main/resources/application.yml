@@ -1,0 +1,40 @@
+spring:
+    application:
+        name: sample-app-backend
+        version: 1.0.0
+
+    datasource:
+        url: jdbc:mariadb://${MARIADB_HOST_NAME:localhost}:${MARIADB_PORT:3306}/${MARIADB_DB_NAME:sample_app}?autoReconnect=true&useSSL=false
+        username: ${MARIADB_USER:root}
+        password: ${MARIADB_PASSWORD:root}
+        driver-class-name: org.mariadb.jdbc.Driver
+        hikari:
+            connection-timeout: 10000
+            maximum-pool-size: 10
+            minimum-idle: 2
+            idle-timeout: 300000
+            max-lifetime: 600000
+            leak-detection-threshold: 60000
+  
+    jpa:
+        show-sql: ${JPA_SHOW_SQL:true}
+        properties:
+            hibernate:
+                format_sql: ${JPA_FORMAT_SQL:true}
+
+    liquibase:
+        change-log: ${LIQUIBASE_CHANGE_LOG:db/master.xml}
+        contexts: ${LIQUIBASE_CONTEXTS:sample-app-seed}
+
+# Logging
+    logging:
+        level:
+            com.example: DEBUG
+            org.springframework.modulith: DEBUG
+            org.springframework.security: DEBUG
+        pattern:
+            console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{traceId:-},%X{spanId:-}] %logger{36} - %msg%n"
+
+server:
+  servlet:
+    context-path: /api 
